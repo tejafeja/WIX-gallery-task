@@ -1,23 +1,29 @@
 (function () {
 
   var ImageFinder = window.CLASSES.ImageFinder = function () {};
-
+  
+/**
+ * Search the images in static-images-db
+  @param query -> a word added to search finder
+ *  
+ */ 
   ImageFinder.prototype.search = function (query) {
-    return {
-      query: 'demo',
-      images: [
-        {
-          id:'1',
-          url:'http://image.shutterstock.com/display_pic_with_logo/347836/99127196/stock-photo-demo-icon-99127196.jpg',
-          title:'demo image 1'
-        },
-        {
-          id:'2',
-          url:'http://t2.ftcdn.net/jpg/00/30/42/21/400_F_30422159_lzSKGlGNX1YcKGuIFDiEyZbmCF3hacIB.jpg',
-          title:'demo image 2'
-        }
-      ]
+    let searchData = window.DATA.staticImagesDb;
+    let results = {
+      query: query,
+      images: []
     };
+    searchData.forEach(function (image) {
+      if (image.title.indexOf(query) > -1) {
+        results.images.push({
+          id: image.id,
+          url: image.url,
+          title: image.title
+        }
+        );
+      }
+    });
+    return results;
   }
 
 })();
