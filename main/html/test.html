@@ -24,17 +24,24 @@
     // Global maps for classes and static data
     var CLASSES = {};
     var DATA = {};
+    var MODULES = {};
   </script>
 
   <script src="../resources/static-images-db.js"></script>
   <script src="../javascript/ImageFinder.js"></script>
   <script src="../javascript/Gallery.js"></script>
+  <script src="../javascript/StaticDBFinder.js"></script>
+  <script src="../javascript/FlickrFinder.js"></script>
 
   <script>
     var GalleryClass = CLASSES['Gallery'];
     var ImageFinderClass = CLASSES['ImageFinder'];
+    var StaticDBFinderModule = MODULES['static'];
+    var FlickrFinderModule = MODULES['flickr'];
 
-    var imageFinder = new ImageFinderClass();
+    var flickrFinder = new FlickrFinderModule();
+    var staticDBFinder = new StaticDBFinderModule();
+    var imageFinder = new ImageFinderClass(staticDBFinder, flickrFinder);
 
     window.onload = function() {
       var gallery = new GalleryClass(imageFinder);

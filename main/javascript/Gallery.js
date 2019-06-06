@@ -13,8 +13,8 @@
    * start a new search
    * @param {String} query - search term to look for
    */
-  Gallery.prototype.doSearch = function (query) {
-    var searchResults = this._imageFinder.search(query);
+  Gallery.prototype.doSearch = function (query, moduleId) {
+    var searchResults = this._imageFinder.search(query, moduleId);
     this._onSearchResultReady(searchResults);
   };
 
@@ -23,7 +23,7 @@
    */
   Gallery.prototype._onSearchButtonClick = function (e) {
     var query = this._queryInputNode.value;
-    this.doSearch(query);
+    this.doSearch(query, moduleId);
   };
 
   /**

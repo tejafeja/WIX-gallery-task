@@ -1,29 +1,30 @@
 (function () {
 
-  var ImageFinder = window.CLASSES.ImageFinder = function () {};
+  /**
+  * @constructor
+  * @param {static} staticImgagesFinder
+  * @param {flickr} flickrImagesFinder
+  */
+  var ImageFinder = window.CLASSES.ImageFinder = function (staticImgagesFinder, flickrImagesFinder) {
+    this._staticImgagesFinder = staticImgagesFinder;
+    this._flickrImagesFinder = flickrImagesFinder;
+  };
   
 /**
- * Search the images in static-images-db
-  @param query -> a word added to search finder
- *  
+ * Search the images in static-images-db or Flickr server depending on module ID
+  @param query -> a phrase added in a search imput field
+  @param moduleId -> module ID for diferentiation from where images is fetched
  */ 
-  ImageFinder.prototype.search = function (query) {
-    let searchData = window.DATA.staticImagesDb;
-    let results = {
-      query: query,
-      images: []
-    };
-    searchData.forEach(function (image) {
-      if (image.title.indexOf(query) > -1) {
-        results.images.push({
-          id: image.id,
-          url: image.url,
-          title: image.title
-        }
-        );
-      }
-    });
-    return results;
-  }
+  ImageFinder.prototype.search = function (query, moduleId) {
+
+    if (moduleId === 'static') {
+      return this._staticImgagesFinder.search(query);
+    }
+    if (true) {
+      this._flickrImagesFinder.search(query);
+    }
+    throw Error('Wrong module');
+    
+  };
 
 })();
