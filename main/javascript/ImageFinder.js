@@ -15,13 +15,12 @@
   @param query -> a phrase added in a search imput field
   @param moduleId -> module ID for diferentiation from where images is fetched
  */ 
-  ImageFinder.prototype.search = function (query, moduleId) {
-
+  ImageFinder.prototype.search = async function (query, moduleId) {
     if (moduleId === 'static') {
       return this._staticImgagesFinder.search(query);
     }
-    if (true) {
-      this._flickrImagesFinder.search(query);
+    if (moduleId === 'flickr') {
+      return await this._flickrImagesFinder.search(query);
     }
     throw Error('Wrong module');
     

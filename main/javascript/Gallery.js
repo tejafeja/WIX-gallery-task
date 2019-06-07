@@ -13,8 +13,8 @@
    * start a new search
    * @param {String} query - search term to look for
    */
-  Gallery.prototype.doSearch = function (query, moduleId) {
-    var searchResults = this._imageFinder.search(query, moduleId);
+  Gallery.prototype.doSearch = async function (query, moduleId) {
+    var searchResults = await this._imageFinder.search(query, moduleId);
     this._onSearchResultReady(searchResults);
   };
 
@@ -23,6 +23,8 @@
    */
   Gallery.prototype._onSearchButtonClick = function (e) {
     var query = this._queryInputNode.value;
+    var selector = document.getElementById('selector');
+    var moduleId = selector[selector.selectedIndex].value;
     this.doSearch(query, moduleId);
   };
 
@@ -80,6 +82,23 @@
     this._searchBtnNode = document.createElement('button');
     this._searchBtnNode.innerHTML = 'search';
     this._controlsNode.appendChild(this._searchBtnNode);
+
+    //creates drop down menu next to input field
+    this._selectNode =  document.createElement('select');
+    this._selectNode.setAttribute('id', 'selector');
+
+    this._staticOptionNode = document.createElement('option');
+    this._staticOptionNode.setAttribute('value', 'static' );
+    this._staticOptionNode.innerHTML = 'static';
+    this._selectNode.appendChild(this._staticOptionNode);
+
+    this._flickrOptionNode = document.createElement('option');
+    this._flickrOptionNode.setAttribute('value', 'flickr');
+    this._flickrOptionNode.innerHTML = 'flickr';
+    this._selectNode.appendChild(this._flickrOptionNode);
+
+    this._controlsNode.appendChild(this._selectNode);
+
   };
 
 })();

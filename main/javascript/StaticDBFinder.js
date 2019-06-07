@@ -13,14 +13,17 @@
             query: query,
             images: []
         };
+        // prevent from returning all static data when imput field is empty
+        if (query === '') {
+            return results;
+        };
         searchData.forEach(function (image) {
             if (image.title.toLowerCase().indexOf(query.toLowerCase()) > -1) {
                 results.images.push({
                     id: image.id,
                     url: image.url,
                     title: image.title
-                }
-                );
+                });
             }
         });
         return results;
